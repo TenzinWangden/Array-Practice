@@ -11,8 +11,7 @@ public class ArrayPractice {
 		userFood[1] = in.next();
 		userFood[2] = in.next();
 		System.out.println("Cool your favirote food are " + userFood[0] + ", " + userFood[1] + ", " + userFood[2]+"!");
-		String[] numbers = {"apple", "orange", "watermelon" };
-		System.out.println(numbers[0]);
+
 	}
 
 }
