@@ -41,8 +41,8 @@ public class FindTheMaxValueOfNAnArray {
 				largest = oneNumbers[i];
 			i++;
 		}
-		System.out.println("the smallest number in one index array is: " + smallest);
-		System.out.println("the largest number in one index array is: " + largest);
+//		System.out.println("the smallest number in one index array is: " + smallest);
+//		System.out.println("the largest number in one index array is: " + largest);
 	}
 
 	public static void nullNumbers(int[] numbers) {
