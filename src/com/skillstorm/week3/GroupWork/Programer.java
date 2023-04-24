@@ -1,4 +1,4 @@
-package GroupWork;
+package com.skillstorm.week3.GroupWork;
 /*
  * Team Catchable
    Daun

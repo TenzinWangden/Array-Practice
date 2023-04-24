@@ -1,4 +1,4 @@
-package com.skillstorm.week3;
+package com.skillstorm.week3.Circle;
 import java.util.Scanner;
 
 public class CircleMain {
