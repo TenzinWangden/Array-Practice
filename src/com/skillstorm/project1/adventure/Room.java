@@ -1,59 +1,37 @@
 package com.skillstorm.project1.adventure;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Room {
-    private String name;
     private String description;
-    private ArrayList<Item> items;
     private Monster monster;
+    private Item item;
 
-    public Room(String name, String description) {
-        this.name = name;
+    public Room(String description, Monster monster, Item item) {
         this.description = description;
-        this.items = new ArrayList<>();
-        this.monster = null;
-    }
-
-    public String getName() {
-        return name;
+        this.monster = monster;
+        this.item = item;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
-    public void removeItem(Item item) {
-        items.remove(item);
-    }
-
     public Monster getMonster() {
         return monster;
     }
 
-    public void setMonster(Monster monster) {
-        this.monster = monster;
+    public Item getItem() {
+        return item;
     }
 
     public boolean hasMonster() {
-        return monster != null;
+        return monster != null && monster.getHealth() > 0;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", items=" + items +
-                ", monster=" + monster +
-                '}';
-    }
+	public void move(String input) {
+		// TODO Auto-generated method stub
+		
+	}
 }

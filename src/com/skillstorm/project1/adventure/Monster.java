@@ -1,14 +1,18 @@
 package com.skillstorm.project1.adventure;
 
+import com.skillstorm.Project.Player;
+
 public class Monster {
     private String name;
     private int health;
-    private int attackPower;
+    private int attack;
+    private int defense;
 
-    public Monster(String name, int health, int attackPower) {
+    public Monster(String name, int health, int attack, int defense) {
         this.name = name;
         this.health = health;
-        this.attackPower = attackPower;
+        this.attack = attack;
+        this.defense = defense;
     }
 
     public String getName() {
@@ -19,26 +23,17 @@ public class Monster {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public int getAttack() {
+        return attack;
     }
 
-    public int getAttackPower() {
-        return attackPower;
+    public int getDefense() {
+        return defense;
     }
 
     public void attack(Player player) {
-        int damage = this.getAttackPower();
+        int damage = Math.max(0, this.attack - player.getDefense());
         player.takeDamage(damage);
-        System.out.println(this.getName() + " attacked you for " + damage + " damage!");
-    }
-
-    @Override
-    public String toString() {
-        return "Monster{" +
-                "name='" + name + '\'' +
-                ", health=" + health +
-                ", attackPower=" + attackPower +
-                '}';
+        System.out.println(this.name + " attacked you and dealt " + damage + " damage!");
     }
 }

@@ -2,33 +2,24 @@ package com.skillstorm.project1.adventure;
 
 public class Item {
     private String name;
-    private String description;
-    private int value;
+    private int attackBonus;
+    private int defenseBonus;
 
-    public Item(String name, String description, int value) {
+    public Item(String name, int attackBonus, int defenseBonus) {
         this.name = name;
-        this.description = description;
-        this.value = value;
+        this.attackBonus = attackBonus;
+        this.defenseBonus = defenseBonus;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public int getAttackBonus() {
+        return attackBonus;
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", value=" + value +
-                '}';
+    public int getDefenseBonus() {
+        return defenseBonus;
     }
 }
