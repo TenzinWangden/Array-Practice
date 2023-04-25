@@ -1,12 +1,11 @@
 package com.skillstorm.project1.adventure;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Room {
     private String name;
     private String description;
-    private List<Item> items;
+    private ArrayList<Item> items;
     private Monster monster;
 
     public Room(String name, String description) {
@@ -24,16 +23,16 @@ public class Room {
         return description;
     }
 
-    public List<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
     public void addItem(Item item) {
-        this.items.add(item);
+        items.add(item);
     }
 
     public void removeItem(Item item) {
-        this.items.remove(item);
+        items.remove(item);
     }
 
     public Monster getMonster() {
@@ -42,5 +41,19 @@ public class Room {
 
     public void setMonster(Monster monster) {
         this.monster = monster;
+    }
+
+    public boolean hasMonster() {
+        return monster != null;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", items=" + items +
+                ", monster=" + monster +
+                '}';
     }
 }

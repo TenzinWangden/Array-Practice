@@ -3,12 +3,12 @@ package com.skillstorm.project1.adventure;
 public class Monster {
     private String name;
     private int health;
-    private int attack;
+    private int attackPower;
 
-    public Monster(String name, int health, int attack) {
+    public Monster(String name, int health, int attackPower) {
         this.name = name;
         this.health = health;
-        this.attack = attack;
+        this.attackPower = attackPower;
     }
 
     public String getName() {
@@ -23,7 +23,22 @@ public class Monster {
         this.health = health;
     }
 
-    public int getAttack() {
-        return attack;
+    public int getAttackPower() {
+        return attackPower;
+    }
+
+    public void attack(Player player) {
+        int damage = this.getAttackPower();
+        player.takeDamage(damage);
+        System.out.println(this.getName() + " attacked you for " + damage + " damage!");
+    }
+
+    @Override
+    public String toString() {
+        return "Monster{" +
+                "name='" + name + '\'' +
+                ", health=" + health +
+                ", attackPower=" + attackPower +
+                '}';
     }
 }

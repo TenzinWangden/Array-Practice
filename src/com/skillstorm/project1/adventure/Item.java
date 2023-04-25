@@ -2,10 +2,12 @@ package com.skillstorm.project1.adventure;
 
 public class Item {
     private String name;
+    private String description;
     private int value;
 
-    public Item(String name, int value) {
+    public Item(String name, String description, int value) {
         this.name = name;
+        this.description = description;
         this.value = value;
     }
 
@@ -13,7 +15,20 @@ public class Item {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public int getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", value=" + value +
+                '}';
     }
 }
