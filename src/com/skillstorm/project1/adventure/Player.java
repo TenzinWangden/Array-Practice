@@ -3,12 +3,10 @@ package com.skillstorm.project1.adventure;
 public class Player {
     protected String name;
     protected String className;
-    protected int level;
 
     public Player(String name, String className) {
         this.name = name;
         this.className = className;
-        this.level = 1;
     }
 
     public String getName() {
@@ -19,9 +17,19 @@ public class Player {
         return this.className;
     }
 
-    public int getLevel() {
-        return this.level;
-    }
+	public int getStrength() {
+		return this.getStrength();
+	}
+
+	public int getAgility() {
+		// TODO Auto-generated method stub
+		return this.getAgility();
+	}
+
+	public int getLuck() {
+		// TODO Auto-generated method stub
+		return this.getLuck();
+	}
 }
 
 class Warrior extends Player {

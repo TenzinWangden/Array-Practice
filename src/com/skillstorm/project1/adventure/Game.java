@@ -2,6 +2,9 @@ package com.skillstorm.project1.adventure;
 
 import java.util.Scanner;
 
+import com.skillstorm.Project.Rogue;
+import com.skillstorm.Project.Warrior;
+
 public class Game {
     private Player player;
 
@@ -14,7 +17,7 @@ public class Game {
 
         player = chooseClass();
 
-        System.out.println("Welcome, " + name + " the " + player.getType() + "!");
+        System.out.println("Welcome, " + name + " the " + player.getClassName() + "!");
         System.out.println("Your stats: Strength=" + player.getStrength() + " Agility=" + player.getAgility() +
                 " Luck=" + player.getLuck());
 
