@@ -1,7 +1,5 @@
 package com.skillstorm.project1.adventure;
 
-
-
 public class CharacterClass {
 	int stringth;
 	int defence;

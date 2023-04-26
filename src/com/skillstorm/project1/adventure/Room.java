@@ -1,37 +1,48 @@
 package com.skillstorm.project1.adventure;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Room {
     private String description;
-    private Monster monster;
-    private Item item;
+    private Room[] exits;
 
-    public Room(String description, Monster monster, Item item) {
+    public Room(String description) {
         this.description = description;
-        this.monster = monster;
-        this.item = item;
+        exits = new Room[4];
+    }
+
+    public void setExit(int direction, Room neighbor) {
+        exits[direction] = neighbor;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Monster getMonster() {
-        return monster;
+    public String getExitString() {
+        String exitString = "Exits: ";
+        for (int i = 0; i < exits.length; i++) {
+            if (exits[i] != null) {
+                exitString += getDirectionName(i) + " ";
+            }
+        }
+        return exitString;
     }
 
-    public Item getItem() {
-        return item;
+    public Room getExit(int direction) {
+        return exits[direction];
     }
 
-    public boolean hasMonster() {
-        return monster != null && monster.getHealth() > 0;
+    private String getDirectionName(int direction) {
+        switch (direction) {
+            case 0:
+                return "north";
+            case 1:
+                return "east";
+            case 2:
+                return "south";
+            case 3:
+                return "west";
+            default:
+                return "unknown";
+        }
     }
-
-	public void move(String input) {
-		// TODO Auto-generated method stub
-		
-	}
 }
