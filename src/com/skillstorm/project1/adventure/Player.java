@@ -1,72 +1,47 @@
 package com.skillstorm.project1.adventure;
 
-public class Player {
-    protected String name;
-    protected String className;
+public abstract class Player {
+    private String name;
+    private int strength;
+    private int agility;
 
-    public Player(String name, String className) {
+    public Player(String name, int strength, int agility) {
         this.name = name;
-        this.className = className;
+        this.strength = strength;
+        this.agility = agility;
     }
 
     public String getName() {
-        return this.name;
-    }
-
-    public String getClassName() {
-        return this.className;
-    }
-
-	public int getStrength() {
-		return this.getStrength();
-	}
-
-	public int getAgility() {
-		// TODO Auto-generated method stub
-		return this.getAgility();
-	}
-
-	public int getLuck() {
-		// TODO Auto-generated method stub
-		return this.getLuck();
-	}
-}
-
-class Warrior extends Player {
-    private int strength;
-
-    public Warrior(String name) {
-        super(name, "Warrior");
-        this.strength = 10;
+        return name;
     }
 
     public int getStrength() {
-        return this.strength;
-    }
-}
-
-class Rogue extends Player {
-    private int agility;
-
-    public Rogue(String name) {
-        super(name, "Rogue");
-        this.agility = 10;
+        return strength;
     }
 
     public int getAgility() {
-        return this.agility;
-    }
-}
-
-class Archer extends Player {
-    private int luck;
-
-    public Archer(String name) {
-        super(name, "Archer");
-        this.luck = 10;
+        return agility;
     }
 
-    public int getLuck() {
-        return this.luck;
+    public abstract String getClassName();
+
+    public static class Warrior extends Player {
+        public Warrior(String name, int strength) {
+            super(name, strength, 0);
+        }
+
+        public String getClassName() {
+            return "Warrior";
+        }
+    }
+
+    public static class Rogue extends Player {
+        public Rogue(String name, int agility) {
+            super(name, 0, agility);
+        }
+
+        public String getClassName() {
+            return "Rogue";
+        }
     }
 }

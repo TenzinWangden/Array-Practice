@@ -2,11 +2,13 @@ package com.skillstorm.project1.adventure;
 
 import java.util.Scanner;
 
-import com.skillstorm.Project.Rogue;
-import com.skillstorm.Project.Warrior;
-
 public class Game {
     private Player player;
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.start();
+    }
 
     public void start() {
         System.out.println("Welcome to the Text Adventure Game!");
@@ -15,20 +17,16 @@ public class Game {
         System.out.print("Please enter your name: ");
         String name = scanner.nextLine();
 
-        player = chooseClass();
+        player = chooseClass(name);
 
-        System.out.println("Welcome, " + name + " the " + player.getClassName() + "!");
-        System.out.println("Your stats: Strength=" + player.getStrength() + " Agility=" + player.getAgility() +
-                " Luck=" + player.getLuck());
-
-        // TODO: Implement game logic
+        System.out.println("Welcome, " + player.getName() + " the " + player.getClassName() + "!");
+        System.out.println("Your stats: Strength=" + player.getStrength() + " Agility=" + player.getAgility());
     }
 
-    private Player chooseClass() {
+    private Player chooseClass(String name) {
         System.out.println("Please choose your class:");
         System.out.println("1. Warrior");
         System.out.println("2. Rogue");
-        System.out.println("3. Archer");
 
         Scanner scanner = new Scanner(System.in);
         int classChoice = scanner.nextInt();
@@ -36,14 +34,18 @@ public class Game {
 
         switch (classChoice) {
             case 1:
-                return new Warrior();
+//                System.out.print("Enter strength: ");
+                int strength = 10;
+//                scanner.nextLine(); // consume the newline character
+                return new Player.Warrior(name, strength);
             case 2:
-                return new Rogue();
-            case 3:
-                return new Archer();
+//                System.out.print("Enter agility: ");
+                int agility = 10;
+//                scanner.nextLine(); // consume the newline character
+                return new Player.Rogue(name, agility);
             default:
                 System.out.println("Invalid choice. Please try again.");
-                return chooseClass();
+                return chooseClass(name);
         }
     }
 }
