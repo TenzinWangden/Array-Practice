@@ -3,17 +3,14 @@ package com.skillstorm.project1.adventure;
 public class Room {
     private String name;
     private String description;
-    private boolean isExit;
-
     private Room north;
     private Room south;
     private Room east;
     private Room west;
+    private Monster monster;
 
-    public Room(String name, String description) {
+    public Room(String name) {
         this.name = name;
-        this.description = description;
-        this.isExit = false;
     }
 
     public String getName() {
@@ -24,12 +21,8 @@ public class Room {
         return description;
     }
 
-    public boolean isExit() {
-        return isExit;
-    }
-
-    public void setExit() {
-        this.isExit = true;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Room getNorth() {
@@ -38,6 +31,7 @@ public class Room {
 
     public void setNorth(Room north) {
         this.north = north;
+        north.setSouth(this);
     }
 
     public Room getSouth() {
@@ -46,6 +40,7 @@ public class Room {
 
     public void setSouth(Room south) {
         this.south = south;
+        south.setNorth(this);
     }
 
     public Room getEast() {
@@ -54,6 +49,7 @@ public class Room {
 
     public void setEast(Room east) {
         this.east = east;
+        east.setWest(this);
     }
 
     public Room getWest() {
@@ -62,19 +58,49 @@ public class Room {
 
     public void setWest(Room west) {
         this.west = west;
+        west.setEast(this);
     }
 
+    public Monster getMonster() {
+        return monster;
+    }
+
+    public void setMonster(Monster monster) {
+        this.monster = monster;
+    }
+    
+    public boolean hasMonster() {
+        return monster != null && monster.isAlive();
+    }
+    
     public Room getExit(String direction) {
-        if (direction.equalsIgnoreCase("north")) {
-            return this.north;
-        } else if (direction.equalsIgnoreCase("south")) {
-            return this.south;
-        } else if (direction.equalsIgnoreCase("east")) {
-            return this.east;
-        } else if (direction.equalsIgnoreCase("west")) {
-            return this.west;
-        } else {
-            return null;
+        switch (direction) {
+            case "north":
+                return north;
+            case "south":
+                return south;
+            case "east":
+                return east;
+            case "west":
+                return west;
+            default:
+                return null;
         }
+    }
+    public String getExitString() {
+        StringBuilder exits = new StringBuilder("Exits: ");
+        if (north != null) {
+            exits.append("north ");
+        }
+        if (east != null) {
+            exits.append("east ");
+        }
+        if (south != null) {
+            exits.append("south ");
+        }
+        if (west != null) {
+            exits.append("west ");
+        }
+        return exits.toString();
     }
 }

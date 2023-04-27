@@ -1,48 +1,55 @@
 package com.skillstorm.project1.adventure;
 
-public abstract class Player {
-    private String name;
-    private int strength;
-    private int agility;
+public class Player {
+    private int health;
+    private int damage;
+    private Room currentRoom;
 
-    public Player(String name, int strength, int agility) {
-        this.name = name;
-        this.strength = strength;
-        this.agility = agility;
+    public Player() {
+        this.health = 100;
+        this.damage = 10;
     }
 
-    public String getName() {
-        return name;
+    public int getHealth() {
+        return health;
     }
 
-    public int getStrength() {
-        return strength;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
-    public int getAgility() {
-        return agility;
+    public int getDamage() {
+        return damage;
     }
 
-    public abstract String getClassName();
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
 
-    public static class Warrior extends Player {
-        public Warrior(String name, int strength) {
-            super(name, strength, 0);
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    public int calculateDamage() {
+        int totalDamage = this.damage;
+        if (this.currentRoom != null && this.currentRoom.getMonster() != null) {
+            totalDamage += this.currentRoom.getMonster().getDamage();
         }
+        return totalDamage;
+    }
 
-        public String getClassName() {
-            return "Warrior";
+    public void takeDamage(int damage) {
+        this.health -= damage;
+        if (this.health < 0) {
+            this.health = 0;
         }
     }
 
-    public static class Rogue extends Player {
-        public Rogue(String name, int agility) {
-            super(name, 0, agility);
-        }
-
-        public String getClassName() {
-            return "Rogue";
-        }
+    public boolean isAlive() {
+        return this.health > 0;
     }
 }
-
