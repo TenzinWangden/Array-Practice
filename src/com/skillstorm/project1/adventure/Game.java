@@ -101,7 +101,6 @@ public class Game {
 		Scanner scanner = new Scanner(System.in);
 		int classChoice = scanner.nextInt();
 		scanner.nextLine(); // consume the newline character
-		scanner.close();
 
 		switch (classChoice) {
 		case 1:
@@ -125,6 +124,5 @@ public class Game {
 		} else {
 			System.exit(0);
 		}
-		scanner.close();
 	}
 }
