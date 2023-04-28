@@ -123,6 +123,6 @@ public class Game {
 			start();
 		} else {
 			System.exit(0);
-		}
+		}scanner.close();
 	}
 }
