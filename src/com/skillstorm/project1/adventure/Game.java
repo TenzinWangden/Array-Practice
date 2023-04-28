@@ -1,99 +1,119 @@
 package com.skillstorm.project1.adventure;
-
 import java.util.Scanner;
-
 public class Game {
+	private Player player;
+	private int currentRoom;
+	private String[] rooms;
+	private String[] monsters;
 
-    private static Scanner scanner = new Scanner(System.in);
+	public static void main(String[] args) {
+		Game game = new Game();
+		game.start();
+	}
 
-    public static void main(String[] args) {
-        // Create rooms
-        Room startRoom = new Room("Start Room");
-        Room northRoom = new Room("North Room");
-        Room eastRoom = new Room("East Room");
-        Room southRoom = new Room("South Room");
-        Room westRoom = new Room("West Room");
+	public void start() {
+		System.out.println("Welcome to the Text Adventure Game!");
 
-        // Connect rooms
-        startRoom.setNorth(northRoom);
-        northRoom.setSouth(startRoom);
-        startRoom.setEast(eastRoom);
-        eastRoom.setWest(startRoom);
-        startRoom.setSouth(southRoom);
-        southRoom.setNorth(startRoom);
-        startRoom.setWest(westRoom);
-        westRoom.setEast(startRoom);
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Please enter your name: ");
+		String name = scanner.nextLine();
 
-        // Create player
-        Player player = new Player();
-        player.setCurrentRoom(startRoom);
+		player = chooseClass(name);
 
-        // Create monster
-        Monster monster = new Monster("Goblin", 20, 5);
-        northRoom.setMonster(monster);
+		System.out.println("Welcome to the game, " + player.getName() + " the " + player.getClassName() + "!");
+		if (player.getClassName().equals("Warrior")) {
+		    System.out.println("Your stats: Strength=" + player.getStrength() + " Agility=" + player.getAgility()
+		            + "\nYou are very Strong but slow as a turtle.");
+		} else {
+		    System.out.println("Your stats: Strength=" + player.getStrength() + " Agility=" + player.getAgility()
+		            + "\nYou are very fast but lack the aptitude to fight.");
+		}
+		Scanner scanner1 = new Scanner(System.in);
+		System.out.print("\nPress enter to Start the Game!");
+		String in1 = scanner.nextLine();
+		// Initialize the rooms and monsters
+		rooms = new String[] { "living room", "kitchen", "bathroom", "bedroom", "attic", "basement", "garage", "office",
+				"library" };
+		monsters = new String[] { "zombie", "vampire", "werewolf", "witch", "ghost", "goblin", "dragon", "demon",
+				"skeleton" };
+		int numFights = 0; // initialize fight counter
+		// Start the game loop
+		while (true) {
+			System.out.println("\nYou are currently in the " + rooms[currentRoom] + ".");
+			System.out.println("There is a " + monsters[currentRoom] + " in the room.");
+			System.out.println("What would you like to do?");
+			System.out.println("1. Fight");
+			System.out.println("2. Run");
 
-        // Game loop
-        boolean gameover = false;
-        while (!gameover) {
-            // Print current room description
-            System.out.println(player.getCurrentRoom().getName());
-            System.out.println(player.getCurrentRoom().getDescription());
+			int choice = scanner.nextInt();
+			scanner.nextLine(); // consume the newline character
 
-            // Print available exits
-            System.out.println(player.getCurrentRoom().getExitString());
+			if (player instanceof Player.Warrior) {
+				if (choice == 1) {
+					System.out.println("You fought bravely. Doue to your immense stringth, have defeated the " + monsters[currentRoom] + "! You found the next room and entered.");
+					numFights++; 
+					currentRoom++;
+				} else {
+					System.out.println("You tried to run away but you are too slow. " + monsters
+							+ " cought up to you and killed you!");
+					gameOver(scanner);
+					break;
+				}
+			} else if (player instanceof Player.Rogue) {
+				if (choice == 1) {
+					System.out.println(
+							"You bravely try to fight but having no strength " + monsters + " attecked you and died!");
+					gameOver(scanner);
+					break;
+				} else {
+					System.out.println("You have successfully run away from the " + monsters[currentRoom] + ".");
+					currentRoom++;
+					numFights++;
+				}
+			}      
+			if (numFights == 3) { // check if 3 fights have been completed
+	            System.out.println("*******Congratulations, you have cleared all the monsters and reached the last room /n You have reached the exit! You are Free!*******");
+	            gameOver(scanner);
+	            break;
+	        }
+			if (currentRoom == rooms.length) {
+				System.out.println("You have won the game!");
+				gameOver(scanner);
+				break;
+			}
+		}
+	}
 
-            // Check for monster in current room
-            Monster currentMonster = player.getCurrentRoom().getMonster();
-            if (currentMonster != null) {
-                System.out.println("You encounter a " + currentMonster.getName() + "!");
-                // Battle loop
-                boolean battleOver = false;
-                while (!battleOver) {
-                    // Player attacks monster
-                    int playerDamage = player.calculateDamage();
-                    currentMonster.takeDamage(playerDamage);
-                    System.out.println("You attack the " + currentMonster.getName() + " for " + playerDamage + " damage!");
-                    if (!currentMonster.isAlive()) {
-                        System.out.println("You have defeated the " + currentMonster.getName() + "!");
-                        player.getCurrentRoom().setMonster(null);
-                        battleOver = true;
-                        break;
-                    }
-                    // Monster attacks player
-                    int monsterDamage = currentMonster.calculateDamage();
-                    player.takeDamage(monsterDamage);
-                    System.out.println("The " + currentMonster.getName() + " attacks you for " + monsterDamage + " damage!");
-                    if (!player.isAlive()) {
-                        System.out.println("You have been defeated by the " + currentMonster.getName() + "!");
-                        gameover = true;
-                        battleOver = true;
-                        break;
-                    }
-                }
-            }
+	private Player chooseClass(String name) {
+		System.out.println("Please choose your class:");
+		System.out.println("1. Warrior");
+		System.out.println("2. Rogue");
 
-            // Check for game over
-            if (!player.isAlive()) {
-                System.out.println("Game over");
-                gameover = true;
-                break;
-            }
+		Scanner scanner = new Scanner(System.in);
+		int classChoice = scanner.nextInt();
+		scanner.nextLine(); // consume the newline character
 
-            // Prompt player for input
-            System.out.print("Enter a direction: ");
-            String input = scanner.nextLine();
-            Room nextRoom = player.getCurrentRoom().getExit(input);
-            if (nextRoom == null) {
-                System.out.println("You cannot go that way.");
-            } else {
-                player.setCurrentRoom(nextRoom);
-            }
+		switch (classChoice) {
+		case 1:
+			int strength = 10;
+			return new Player.Warrior(name, strength);
+		case 2:
+			int agility = 10;
+			return new Player.Rogue(name, agility);
+		default:
+			System.out.println("Invalid choice. Please try again.");
+			return chooseClass(name);
+		}
+	}
 
-            // Check for game over
-            if (!player.isAlive()) {
-                System.out.println("Game over");
-                gameover = true;
-            }
-        }
-    }
+	private void gameOver(Scanner scanner) {
+		System.out.println("Game over. Would you like to play again? (y/n)");
+		String choice = scanner.nextLine();
+		if (choice.equalsIgnoreCase("y")) {
+			currentRoom = 0;
+			start();
+		} else {
+			System.exit(0);
+		}
+	}
 }

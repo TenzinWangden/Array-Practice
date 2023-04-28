@@ -1,55 +1,47 @@
 package com.skillstorm.project1.adventure;
 
-public class Player {
-    private int health;
-    private int damage;
-    private Room currentRoom;
+public abstract class Player {
+    private String name;
+    private int strength;
+    private int agility;
 
-    public Player() {
-        this.health = 100;
-        this.damage = 10;
+    public Player(String name, int strength, int agility) {
+        this.name = name;
+        this.strength = strength;
+        this.agility = agility;
     }
 
-    public int getHealth() {
-        return health;
+    public String getName() {
+        return name;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public int getStrength() {
+        return strength;
     }
 
-    public int getDamage() {
-        return damage;
+    public int getAgility() {
+        return agility;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
+    public abstract String getClassName();
 
-    public Room getCurrentRoom() {
-        return currentRoom;
-    }
-
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
-    }
-
-    public int calculateDamage() {
-        int totalDamage = this.damage;
-        if (this.currentRoom != null && this.currentRoom.getMonster() != null) {
-            totalDamage += this.currentRoom.getMonster().getDamage();
+    public static class Warrior extends Player {
+        public Warrior(String name, int strength) {
+            super(name, strength, 0);
         }
-        return totalDamage;
-    }
 
-    public void takeDamage(int damage) {
-        this.health -= damage;
-        if (this.health < 0) {
-            this.health = 0;
+        public String getClassName() {
+            return "Warrior";
         }
     }
 
-    public boolean isAlive() {
-        return this.health > 0;
+    public static class Rogue extends Player {
+        public Rogue(String name, int agility) {
+            super(name, 0, agility);
+        }
+
+        public String getClassName() {
+            return "Rogue";
+        }
     }
 }
