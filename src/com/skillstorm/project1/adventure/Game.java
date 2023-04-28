@@ -5,9 +5,6 @@ import java.util.Scanner;
 public class Game {
 	private Player player;
 	private int currentRoom;
-	private String[] rooms;
-	private String[] monsters;
-
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.start();
