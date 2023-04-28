@@ -1,4 +1,6 @@
 package com.skillstorm.project1.adventure;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 public class Game {
 	private Player player;
@@ -29,15 +31,18 @@ public class Game {
 		            + "\nYou are very fast but lack the aptitude to fight.");
 		}
 		Scanner scanner1 = new Scanner(System.in);
-		System.out.print("\nPress enter to Start the Game!");
+		System.out.print("\nPress Enter Key to Start the Game!");
 		String in1 = scanner.nextLine();
+		
 		// Initialize the rooms and monsters
-		rooms = new String[] { "living room", "kitchen", "bathroom", "bedroom", "attic", "basement", "garage", "office",
-				"library" };
-		monsters = new String[] { "zombie", "vampire", "werewolf", "witch", "ghost", "goblin", "dragon", "demon",
-				"skeleton" };
-		int numFights = 0; // initialize fight counter
-		// Start the game loop
+	    String[] rooms = new String[] { "living room", "kitchen", "bathroom", "bedroom", "attic", "basement", "garage", "office", "library" };
+	    String[] monsters = new String[] { "zombie", "vampire", "werewolf", "witch", "ghost", "goblin", "dragon", "demon", "skeleton" };
+	    Collections.shuffle(Arrays.asList(rooms));
+	    Collections.shuffle(Arrays.asList(monsters));
+	   
+	    int numFights = 0; // initialize fight counter
+		
+	    // Start the game loop
 		while (true) {
 			System.out.println("\nYou are currently in the " + rooms[currentRoom] + ".");
 			System.out.println("There is a " + monsters[currentRoom] + " in the room.");
@@ -54,15 +59,15 @@ public class Game {
 					numFights++; 
 					currentRoom++;
 				} else {
-					System.out.println("You tried to run away but you are too slow. " + monsters
-							+ " cought up to you and killed you!");
+					System.out.println("You tried to run away but you are too slow. " + monsters[currentRoom]
+							+ " cought up to you!");
 					gameOver(scanner);
 					break;
 				}
 			} else if (player instanceof Player.Rogue) {
 				if (choice == 1) {
 					System.out.println(
-							"You bravely try to fight but having no strength " + monsters + " attecked you and died!");
+							"You bravely try to fight but having no strength " + monsters + " attecked you! You were Luckally able to avoide the monster!");
 					gameOver(scanner);
 					break;
 				} else {
